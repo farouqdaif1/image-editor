@@ -8,10 +8,8 @@ function ImageDisplay({ setImageUpload, uploadedImage }: childProps) {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        setImageUpload(imageUrl);
-      }
+      const imageUrl = URL.createObjectURL(file);
+      setImageUpload(imageUrl);
     }
   };
   return (
