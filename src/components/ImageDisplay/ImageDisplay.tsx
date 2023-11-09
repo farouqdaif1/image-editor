@@ -10,6 +10,7 @@ function ImageDisplay({ setImageUpload, uploadedImage }: childProps) {
     if (e.target.files) {
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
+
       setImageUpload(imageUrl);
     }
   };
@@ -32,7 +33,13 @@ function ImageDisplay({ setImageUpload, uploadedImage }: childProps) {
       >
         Upload Image
       </button>
+      <div className="image-editor">
+      {uploadedImage ? (
       <ImageEdit uploadedImage={uploadedImage} />
+      ) : (
+        <h1>Please Upload Image !</h1>
+      )}
+    </div>
     </div>
   );
 }

@@ -1,15 +1,13 @@
 interface editProps {
-  uploadedImage: null | string;
+  uploadedImage: string;
 }
+
 function ImageEdit({ uploadedImage }: editProps) {
+  
   return (
-    <div className="image-editor">
-      {uploadedImage ? (
-        <img src={uploadedImage} alt="Uploaded" />
-      ) : (
-        <h1>Please Upload Image !</h1>
-      )}
-    </div>
+    <>
+      <img id="uploaded-image" src={uploadedImage} alt="Uploaded" />
+    </>
   );
 }
 
