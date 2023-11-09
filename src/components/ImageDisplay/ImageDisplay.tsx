@@ -1,4 +1,5 @@
 import { useRef } from "react";
+// import ImageEditor from "./ImageEditor/imageEditor";
 interface childProps {
   setImageUpload(imageUrl: string): void;
   uploadedImage: null | string;

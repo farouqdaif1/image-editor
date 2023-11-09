@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ControlButtons from "./components/ControlButtons";
-import ImageDisplay from "./components/ImageDisplay";
+import ControlButtons from "./components/ControlButtons/ControlButtons";
+import ImageDisplay from "./components/ImageDisplay/ImageDisplay";
 
 function App() {
   const [uploadedImage, setUploadedImage] = useState<null | string>(null);
