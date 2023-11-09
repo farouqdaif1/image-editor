@@ -1,5 +1,5 @@
 import { useRef } from "react";
-// import ImageEditor from "./ImageEditor/imageEditor";
+import ImageEdit from "./ImageEdit/ImageEdit";
 interface childProps {
   setImageUpload(imageUrl: string): void;
   uploadedImage: null | string;
@@ -32,13 +32,7 @@ function ImageDisplay({ setImageUpload, uploadedImage }: childProps) {
       >
         Upload Image
       </button>
-      <div className="image-editor">
-        {uploadedImage ? (
-          <img src={uploadedImage} alt="Uploaded" />
-        ) : (
-          <h1>Please Upload Image !</h1>
-        )}
-      </div>
+      <ImageEdit uploadedImage={uploadedImage} />
     </div>
   );
 }
