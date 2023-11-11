@@ -1,3 +1,5 @@
+// import { useState } from "react";
+
 interface buttonsProps {
   selectedArea: {
     x: number;
@@ -6,9 +8,20 @@ interface buttonsProps {
     b: number;
   };
   canvasForDraw: React.RefObject<HTMLCanvasElement>;
+  pointSelected: { x: number; y: number };
+  hidedAreas: { x: number; y: number; a: number; b: number }[];
+  setHidedAreas(
+    hidedAreas: { x: number; y: number; a: number; b: number }[]
+  ): void;
 }
 
-function ControlButtons({ selectedArea, canvasForDraw }: buttonsProps) {
+function ControlButtons({
+  selectedArea,
+  canvasForDraw,
+  hidedAreas,
+  setHidedAreas,
+  pointSelected,
+}: buttonsProps) {
   const handleHide = (
     area: { x: number; y: number; a: number; b: number },
     canvasForDraw: React.RefObject<HTMLCanvasElement>
@@ -18,8 +31,11 @@ function ControlButtons({ selectedArea, canvasForDraw }: buttonsProps) {
     if (!canvasX) {
       return;
     }
-    canvasX.width = canvasX.offsetWidth;
-    canvasX.height = canvasX.offsetHeight;
+    if (hidedAreas.length === 0) {
+      canvasX.width = canvasX.offsetWidth;
+      canvasX.height = canvasX.offsetHeight;
+      setHidedAreas([...hidedAreas, area]);
+    }
     const ctx = canvasX.getContext("2d");
     if (ctx) {
       // ctx.clearRect(0, 0, canvasX.width, canvasX.height);
@@ -29,9 +45,24 @@ function ControlButtons({ selectedArea, canvasForDraw }: buttonsProps) {
     }
   };
 
+  const handleShowSelected = () => {};
+  const handleShowAll = () => {
+    const canvasX = canvasForDraw.current;
+
+    if (!canvasX) {
+      return;
+    }
+    const context = canvasX.getContext("2d");
+    if (context) {
+      context.clearRect(0, 0, canvasX.width, canvasX.height);
+    }
+  };
+
   return (
     <div className="control-buttons">
-      <button className="show-selected-block">Show selected block</button>
+      <button className="show-selected-block" onClick={handleShowSelected}>
+        Show selected block
+      </button>
       <button
         className="hide-selected-area"
         onClick={() => {
@@ -40,7 +71,9 @@ function ControlButtons({ selectedArea, canvasForDraw }: buttonsProps) {
       >
         Hide selected Area
       </button>
-      <button className="show-all">Show All</button>
+      <button className="show-all" onClick={handleShowAll}>
+        Show All
+      </button>
       <button className="download"> Download</button>
     </div>
   );

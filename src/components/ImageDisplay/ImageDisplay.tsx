@@ -10,12 +10,22 @@ interface childProps {
     b: number;
   }): void;
   canvasForDraw: React.RefObject<HTMLCanvasElement>;
+  setPointSelected(PointSelected: { x: number; y: number }): void;
+  hidedAreas: { x: number; y: number; a: number; b: number }[];
+  setHidedAreas(hidedAreas: { x: number; y: number; a: number; b: number }[]): void;
+  pointSelected: { x: number; y: number };
 }
+
 function ImageDisplay({
   setImageUpload,
   uploadedImage,
   setSelectedArea,
   canvasForDraw,
+  setPointSelected,
+  hidedAreas,
+  setHidedAreas,
+  pointSelected,
+  
 }: childProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +60,10 @@ function ImageDisplay({
             uploadedImage={uploadedImage}
             setSelectedArea={setSelectedArea}
             canvasForDraw={canvasForDraw}
+            setPointSelected={setPointSelected}
+            hidedAreas={hidedAreas}
+            setHidedAreas={setHidedAreas}
+            pointSelected={pointSelected}
           />
         ) : (
           <h1>Please Upload Image !</h1>
