@@ -20,13 +20,9 @@ function ControlButtons({ selectedArea, canvasForDraw }: buttonsProps) {
     }
     canvasX.width = canvasX.offsetWidth;
     canvasX.height = canvasX.offsetHeight;
-    const rect = canvasX.getBoundingClientRect();
-
     const ctx = canvasX.getContext("2d");
     if (ctx) {
       // ctx.clearRect(0, 0, canvasX.width, canvasX.height);
-      console.log(rect.top, rect.left);
-
       ctx.fillStyle = "#FF0000"; // Red color for the rectangle
       ctx.fillRect(area.x, area.y, area.a, area.b); // Rectangle dimensions (x, y, width, height)
       console.log(canvasX);
