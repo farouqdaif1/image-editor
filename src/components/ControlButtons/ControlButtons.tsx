@@ -8,7 +8,7 @@ interface buttonsProps {
     b: number;
   };
   canvasForDraw: React.RefObject<HTMLCanvasElement>;
-  pointSelected: { x: number; y: number };
+  removeSelected: { x: number; y: number; a: number; b: number };
   hidedAreas: { x: number; y: number; a: number; b: number }[];
   setHidedAreas(
     hidedAreas: { x: number; y: number; a: number; b: number }[]
@@ -20,8 +20,8 @@ function ControlButtons({
   canvasForDraw,
   hidedAreas,
   setHidedAreas,
-}: // pointSelected,
-buttonsProps) {
+  removeSelected,
+}: buttonsProps) {
   const handleHide = (
     area: { x: number; y: number; a: number; b: number },
     canvasForDraw: React.RefObject<HTMLCanvasElement>
@@ -41,11 +41,32 @@ buttonsProps) {
       // ctx.clearRect(0, 0, canvasX.width, canvasX.height);
       ctx.fillStyle = "#FF0000"; // Red color for the rectangle
       ctx.fillRect(area.x, area.y, area.a, area.b); // Rectangle dimensions (x, y, width, height)
-      console.log(canvasX);
     }
   };
 
-  const handleShowSelected = () => {};
+  const handleShowSelected = () => {
+    console.log("Show selected block", removeSelected);
+    const canvasX = canvasForDraw.current;
+    if (!canvasX) {
+      return;
+    }
+    const ctx = canvasX.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+    ctx.clearRect(0, 0, canvasX.width, canvasX.height); // Clear the canvas
+    const clearArray = hidedAreas.filter((area) => area !== removeSelected);
+    setHidedAreas(clearArray);
+    hidedAreas.forEach(function (element) {
+      // Check if the current element is not the excluded element
+      if (element !== removeSelected) {
+        // Perform your function on the element
+        ctx.fillStyle = "#FF0000"; // Red color for the rectangle
+        ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
+      }
+      // hidedAreas.splice(indexToRemove, 1);
+    });
+  };
   const handleShowAll = () => {
     const canvasX = canvasForDraw.current;
 

@@ -10,10 +10,17 @@ interface childProps {
     b: number;
   }): void;
   canvasForDraw: React.RefObject<HTMLCanvasElement>;
-  setPointSelected(PointSelected: { x: number; y: number }): void;
+  setRemoveSelected(removeSelected: {
+    x: number;
+    y: number;
+    a: number;
+    b: number;
+  }): void;
   hidedAreas: { x: number; y: number; a: number; b: number }[];
-  setHidedAreas(hidedAreas: { x: number; y: number; a: number; b: number }[]): void;
-  pointSelected: { x: number; y: number };
+  setHidedAreas(
+    hidedAreas: { x: number; y: number; a: number; b: number }[]
+  ): void;
+  // pointSelected: { x: number; y: number };
   selectedArea: { x: number; y: number; a: number; b: number };
 }
 
@@ -22,12 +29,11 @@ function ImageDisplay({
   uploadedImage,
   setSelectedArea,
   canvasForDraw,
-  setPointSelected,
+  setRemoveSelected,
   hidedAreas,
   setHidedAreas,
-  pointSelected,
+  // pointSelected,
   selectedArea,
-  
 }: childProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,10 +68,10 @@ function ImageDisplay({
             uploadedImage={uploadedImage}
             setSelectedArea={setSelectedArea}
             canvasForDraw={canvasForDraw}
-            setPointSelected={setPointSelected}
+            setRemoveSelected={setRemoveSelected}
             hidedAreas={hidedAreas}
             setHidedAreas={setHidedAreas}
-            pointSelected={pointSelected}
+            // pointSelected={pointSelected}
             selectedArea={selectedArea}
           />
         ) : (
