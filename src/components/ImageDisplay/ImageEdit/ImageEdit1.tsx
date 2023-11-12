@@ -135,7 +135,6 @@ function ImageEdit({
         });
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
-        // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
         // Draw the selected area
         ctx.fillStyle = "rgba(0, 0, 0, 0.233)";

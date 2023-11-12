@@ -40,7 +40,6 @@ function App() {
         setRemoveSelected={setRemoveSelected}
         hidedAreas={hidedAreas}
         setHidedAreas={setHidedAreas}
-        // removeSelected={removeSelected}
         selectedArea= {selectedArea}
         
       />

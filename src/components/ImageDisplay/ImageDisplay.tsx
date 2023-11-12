@@ -20,7 +20,6 @@ interface childProps {
   setHidedAreas(
     hidedAreas: { x: number; y: number; a: number; b: number }[]
   ): void;
-  // pointSelected: { x: number; y: number };
   selectedArea: { x: number; y: number; a: number; b: number };
 }
 
@@ -40,21 +39,6 @@ function ImageDisplay({
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
       setImageUpload(imageUrl);
-      // const baseImage = document.getElementById(
-      //   "uploaded-image"
-      // ) as HTMLImageElement;
-      // const canvasX = canvasForDraw.current;
-
-      // console.log("baseImage", baseImage);
-
-      // if (!canvasX) {
-      //   return;
-      // }
-      // const ctx = canvasX.getContext("2d");
-      // if (!ctx) {
-      //   return;
-      // }
-      // ctx.drawImage(baseImage, 0, 0);
     }
   };
   return (
@@ -85,7 +69,6 @@ function ImageDisplay({
             setRemoveSelected={setRemoveSelected}
             hidedAreas={hidedAreas}
             setHidedAreas={setHidedAreas}
-            // pointSelected={pointSelected}
             selectedArea={selectedArea}
           />
         ) : (
