@@ -47,7 +47,6 @@ Feel free to explore the code to understand the implementation details and enhan
 - React
 - JavaScript
 - Typescript
-- [Any additional libraries or frameworks used]
 
 ## Contributing
 
@@ -56,9 +55,5 @@ If you find any issues or have suggestions for improvement, please feel free to 
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
-
-- [Any credits or acknowledgments]
 
 Happy coding!
