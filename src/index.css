@@ -77,3 +77,29 @@ button {
   color: white;
   border: none;
 }
+.image-editor {
+  position: relative;
+}
+#uploaded-image {
+  z-index: 13;
+}
+#myCanvas {
+  z-index: 15;
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-style: solid;
+}
+#canvasForDraw {
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-color: red;
+}
