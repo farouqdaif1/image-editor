@@ -32,7 +32,6 @@ function ImageDisplay({
   setRemoveSelected,
   hidedAreas,
   setHidedAreas,
-  // pointSelected,
   selectedArea,
 }: childProps) {
   const inputRef = useRef<HTMLInputElement>(null);

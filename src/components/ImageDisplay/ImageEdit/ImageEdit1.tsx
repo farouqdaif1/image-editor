@@ -60,8 +60,6 @@ function ImageEdit({
 
       if (hidedAreas.length > 0) {
         selected = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-        console.log(selected);
-        console.log(hidedAreas);
         for (let i = 0; i < hidedAreas.length; i++) {
           if (isPointInsideRect(selected.x, selected.y, hidedAreas[i])) {
             const canvasX = canvasForDraw.current;
@@ -72,6 +70,22 @@ function ImageEdit({
             if (!ctx) {
               return;
             }
+            ctx.clearRect(0, 0, canvasX.width, canvasX.height); // Clear the canvas
+            hidedAreas.forEach(function (element) {
+              // Check if the current element is not the excluded element
+              if (element !== hidedAreas[i]) {
+                // Perform your function on the element
+                ctx.fillStyle = "#FF0000"; // Red color for the rectangle
+                ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
+              }
+            });
+            ctx.fillStyle = "#FF0000"; // Red color for the rectangle
+            ctx.fillRect(
+              hidedAreas[i].x,
+              hidedAreas[i].y,
+              hidedAreas[i].a,
+              hidedAreas[i].b
+            );
             ctx.setLineDash([2, 3]);
             ctx.strokeStyle = "yellow";
             ctx.lineWidth = 10;
