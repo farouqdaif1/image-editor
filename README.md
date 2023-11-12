@@ -1,27 +1,64 @@
-# React + TypeScript + Vite
+# React Image Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This mini website project showcases my proficiency in React, JavaScript, and Typescript, along with my expertise in data structures and problem-solving. The primary goal is to create an Image Viewer with the following features:
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### A. Upload Image
+Allows users to upload an image from their local drive.
 
-## Expanding the ESLint configuration
+### B. Display Panel
+A panel that displays the uploaded image.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### C. Hide Selected Area
+Enables users to select any part of the image and hide the selected area by:
+- Saving the selected area's coordinates and data buffer into Image Metadata.
+- Adding a black box over the selected area.
 
-- Configure the top-level `parserOptions` property like this:
+### D. Show Selected Area
+Enables users to show the hidden area by:
+- Removing the black box from the selected area.
+- Reading the selected area data from Image Metadata and pushing the data back to the image.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### E. Show All
+Allows users to reveal all hidden areas at once.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### F. Download
+Enables users to download the edited image.
+
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/yourusername/react-image-viewer.git`
+2. Install dependencies: `npm install`
+3. Run the project: `npm start`
+
+## Usage
+
+1. Upload an image using the "Upload Image" option.
+2. Use the "Hide Selected Area" option to select and hide a specific part of the image.
+3. Utilize the "Show Selected Area" option to reveal the hidden area.
+4. Alternatively, use the "Show All" option to show all hidden areas at once.
+5. Download the edited image using the "Download" option.
+
+Feel free to explore the code to understand the implementation details and enhance your understanding of React, JavaScript, and Typescript.
+
+## Technologies Used
+
+- React
+- JavaScript
+- Typescript
+- [Any additional libraries or frameworks used]
+
+## Contributing
+
+If you find any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- [Any credits or acknowledgments]
+
+Happy coding!
