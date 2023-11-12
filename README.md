@@ -28,9 +28,9 @@ Enables users to download the edited image.
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/yourusername/react-image-viewer.git`
+1. Clone the repository: `git clone https://github.com/farouqdaif1/image-editor.git`
 2. Install dependencies: `npm install`
-3. Run the project: `npm start`
+3. Run the project: `npm run dev`
 
 ## Usage
 
