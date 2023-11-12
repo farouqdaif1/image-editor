@@ -55,6 +55,9 @@ function ImageEdit({
   const handelOnclick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     let selected = null;
     const canvas = refCanvas.current;
+    const baseImage = document.getElementById(
+      "uploaded-image"
+    ) as HTMLImageElement;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
 
@@ -71,14 +74,18 @@ function ImageEdit({
               return;
             }
             ctx.clearRect(0, 0, canvasX.width, canvasX.height); // Clear the canvas
+            ctx.drawImage(baseImage, 0, 0);
+
             hidedAreas.forEach(function (element) {
               // Check if the current element is not the excluded element
               if (element !== hidedAreas[i]) {
                 // Perform your function on the element
+
                 ctx.fillStyle = "#FF0000"; // Red color for the rectangle
                 ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
               }
             });
+            // ctx.drawImage(baseImage, 0, 0);
             ctx.fillStyle = "#FF0000"; // Red color for the rectangle
             ctx.fillRect(
               hidedAreas[i].x,
@@ -128,6 +135,8 @@ function ImageEdit({
         });
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
+        // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
         // Draw the selected area
         ctx.fillStyle = "rgba(0, 0, 0, 0.233)";
         ctx.fillRect(

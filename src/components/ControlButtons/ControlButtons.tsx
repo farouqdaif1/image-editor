@@ -26,6 +26,9 @@ function ControlButtons({
     area: { x: number; y: number; a: number; b: number },
     canvasForDraw: React.RefObject<HTMLCanvasElement>
   ) => {
+    const baseImage = document.getElementById(
+      "uploaded-image"
+    ) as HTMLImageElement;
     const canvasX = canvasForDraw.current;
 
     if (!canvasX) {
@@ -38,14 +41,22 @@ function ControlButtons({
     setHidedAreas([...hidedAreas, area]);
     const ctx = canvasX.getContext("2d");
     if (ctx) {
-      // ctx.clearRect(0, 0, canvasX.width, canvasX.height);
+      ctx.drawImage(baseImage, 0, 0);
+
+      hidedAreas.forEach(function (element) {
+        ctx.fillStyle = "#FF0000"; // Red color for the rectangle
+        ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
+      });
+
       ctx.fillStyle = "#FF0000"; // Red color for the rectangle
       ctx.fillRect(area.x, area.y, area.a, area.b); // Rectangle dimensions (x, y, width, height)
     }
   };
 
   const handleShowSelected = () => {
-    console.log("Show selected block", removeSelected);
+    const baseImage = document.getElementById(
+      "uploaded-image"
+    ) as HTMLImageElement;
     const canvasX = canvasForDraw.current;
     if (!canvasX) {
       return;
@@ -55,6 +66,8 @@ function ControlButtons({
       return;
     }
     ctx.clearRect(0, 0, canvasX.width, canvasX.height); // Clear the canvas
+    ctx.drawImage(baseImage, 0, 0);
+
     const clearArray = hidedAreas.filter((area) => area !== removeSelected);
     setHidedAreas(clearArray);
     hidedAreas.forEach(function (element) {
@@ -64,10 +77,12 @@ function ControlButtons({
         ctx.fillStyle = "#FF0000"; // Red color for the rectangle
         ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
       }
-      // hidedAreas.splice(indexToRemove, 1);
     });
   };
   const handleShowAll = () => {
+    const baseImage = document.getElementById(
+      "uploaded-image"
+    ) as HTMLImageElement;
     const canvasX = canvasForDraw.current;
 
     if (!canvasX) {
@@ -76,8 +91,29 @@ function ControlButtons({
     const context = canvasX.getContext("2d");
     if (context) {
       context.clearRect(0, 0, canvasX.width, canvasX.height);
+      console.log("baseImage", baseImage);
       setHidedAreas([]);
+      context.drawImage(baseImage, 0, 0);
     }
+  };
+  const handleDownload = () => {
+    console.log("Download");
+    const canvasX = canvasForDraw.current;
+    if (!canvasX) {
+      return;
+    }
+    const ctx = canvasX.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    const image = canvasX
+      .toDataURL("image/png", 1.0)
+      .replace("image/png", "image/octet-stream");
+    const link = document.createElement("a");
+    link.download = "image.png";
+    link.href = image;
+    link.click();
   };
 
   return (
@@ -96,9 +132,10 @@ function ControlButtons({
       <button className="show-all" onClick={handleShowAll}>
         Show All
       </button>
-      <button className="download"> Download</button>
+      <button className="download" onClick={handleDownload}>
+        Download
+      </button>
     </div>
   );
 }
-
 export default ControlButtons;
