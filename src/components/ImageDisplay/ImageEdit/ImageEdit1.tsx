@@ -15,12 +15,10 @@ interface EditProps {
     a: number;
     b: number;
   }): void;
-  // removeSelected: { x: number; y: number; a: number; b: number };
   hidedAreas: { x: number; y: number; a: number; b: number }[];
   setHidedAreas(
     hidedAreas: { x: number; y: number; a: number; b: number }[]
   ): void;
-  // pointSelected: { x: number; y: number };
   selectedArea: { x: number; y: number; a: number; b: number };
 }
 
@@ -30,10 +28,7 @@ function ImageEdit({
   canvasForDraw,
   setRemoveSelected,
   hidedAreas,
-}: // setHidedAreas,
-// pointSelected,
-// selectedArea,
-EditProps) {
+}: EditProps) {
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
   const [endPoint, setEndPoint] = useState({ x: 0, y: 0 });
   const [isDrawing, setIsDrawing] = useState(false);
@@ -44,12 +39,17 @@ EditProps) {
     y: number,
     rect: { x: number; y: number; a: number; b: number }
   ) => {
-    return (
-      x > rect.x &&
-      x < rect.x + Math.abs(rect.a) &&
-      y > rect.y &&
-      y < rect.y + Math.abs(rect.b)
-    );
+    const minX = Math.min(x, x + rect.a);
+    const maxX = Math.max(x, x + rect.a);
+    const minY = Math.min(y, y + rect.b);
+    const maxY = Math.max(y, y + rect.b);
+    if (rect.a > 0 && rect.b > 0) {
+      return (
+        x > rect.x && x < rect.x + rect.a && y > rect.y && y < rect.y + rect.b
+      );
+    } else {
+      return x >= minX && x <= maxX && y >= minY && y <= maxY;
+    }
   };
 
   const handelOnclick = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -64,7 +64,6 @@ EditProps) {
         console.log(hidedAreas);
         for (let i = 0; i < hidedAreas.length; i++) {
           if (isPointInsideRect(selected.x, selected.y, hidedAreas[i])) {
-            // console.log("Point inside rect");
             const canvasX = canvasForDraw.current;
             if (!canvasX) {
               return;
@@ -73,10 +72,7 @@ EditProps) {
             if (!ctx) {
               return;
             }
-            ctx.strokeStyle = "blue";
-
             ctx.setLineDash([2, 3]);
-
             ctx.strokeStyle = "yellow";
             ctx.lineWidth = 10;
             ctx.strokeRect(

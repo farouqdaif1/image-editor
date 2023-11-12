@@ -76,6 +76,7 @@ function ControlButtons({
     const context = canvasX.getContext("2d");
     if (context) {
       context.clearRect(0, 0, canvasX.width, canvasX.height);
+      setHidedAreas([]);
     }
   };
 
