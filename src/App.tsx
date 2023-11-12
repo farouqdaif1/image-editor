@@ -41,6 +41,8 @@ function App() {
         hidedAreas={hidedAreas}
         setHidedAreas={setHidedAreas}
         pointSelected={pointSelected}
+        selectedArea= {selectedArea}
+        
       />
     </div>
   );

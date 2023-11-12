@@ -15,81 +15,83 @@ interface EditProps {
     hidedAreas: { x: number; y: number; a: number; b: number }[]
   ): void;
   pointSelected: { x: number; y: number };
+  selectedArea: { x: number; y: number; a: number; b: number };
 }
 
 function ImageEdit({
   uploadedImage,
   setSelectedArea,
   canvasForDraw,
-  setPointSelected,
+  // setPointSelected,
   hidedAreas,
-  setHidedAreas,
-  pointSelected,
+  // setHidedAreas,
+  // pointSelected,
+  // selectedArea,
 }: EditProps) {
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
   const [endPoint, setEndPoint] = useState({ x: 0, y: 0 });
   const [isDrawing, setIsDrawing] = useState(false);
   const refCanvas = useRef<HTMLCanvasElement | null>(null);
-  // const [pointSelected, setPointSelected] = useState({ x: 0, y: 0 });
 
   const isPointInsideRect = (
     x: number,
     y: number,
     rect: { x: number; y: number; a: number; b: number }
   ) => {
-    console.log(x > rect.x);
-    console.log(x < rect.x + rect.a);
-    console.log(y > rect.y);
-    console.log(y < rect.y + rect.b);
     return (
-      x > rect.x && x < rect.x + rect.a && y > rect.y && y < rect.y + rect.b
-      // x > rect.x && x < rect.x + rect.width && y > rect.y && y < rect.y + rect.height;
+      x > rect.x &&
+      x < rect.x + Math.abs(rect.a) &&
+      y > rect.y &&
+      y < rect.y + Math.abs(rect.b)
     );
   };
-  // Function to select area
+
+  const handelOnclick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    let selected = null;
+    const canvas = refCanvas.current;
+    if (canvas) {
+      const rect = canvas.getBoundingClientRect();
+
+      if (hidedAreas.length > 0) {
+        selected = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        console.log(selected);
+        console.log(hidedAreas);
+        for (let i = 0; i < hidedAreas.length; i++) {
+          if (isPointInsideRect(selected.x, selected.y, hidedAreas[i])) {
+            console.log("Point inside rect");
+            const canvasX = canvasForDraw.current;
+            if (!canvasX) {
+              return;
+            }
+            const ctx = canvasX.getContext("2d");
+            if (!ctx) {
+              return;
+            }
+            ctx.setLineDash([2, 3]);
+            ctx.strokeStyle = "yellow";
+            ctx.lineWidth = 10;
+            ctx.strokeRect(
+              hidedAreas[i].x,
+              hidedAreas[i].y,
+              hidedAreas[i].a,
+              hidedAreas[i].b
+            );
+          }
+        }
+      }
+    }
+  };
+
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = refCanvas.current;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
-      setPointSelected({ x: e.clientX - rect.left, y: e.clientY - rect.top });
 
       setIsDrawing(true);
       setStartPoint({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
       });
-      if (hidedAreas.length > 0) {
-        // console.log("hidedAreas", hidedAreas);
-        // console.log("pointSelected", pointSelected);
-        // console.log("start", startPoint);
-
-        // console.log(
-        //   "isPointInsideRect",
-        //   isPointInsideRect(pointSelected.x, pointSelected.y, hidedAreas[0])
-        // );
-        // if (
-        //   isPointInsideRect(pointSelected.x, pointSelected.y, hidedAreas[0])
-        // ) {
-        console.log("Point inside rect");
-        const canvasX = canvasForDraw.current;
-        if (!canvasX) {
-          return;
-        }
-        const ctx = canvasX.getContext("2d");
-        if (!ctx) {
-          return;
-        }
-        ctx.setLineDash([2, 3]);
-        ctx.strokeStyle = "yellow";
-        ctx.lineWidth = 10;
-        ctx.strokeRect(
-          hidedAreas[0].x,
-          hidedAreas[0].y,
-          hidedAreas[0].a,
-          hidedAreas[0].b
-        );
-        // }
-      }
     }
   };
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -106,8 +108,6 @@ function ImageEdit({
         });
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
-        // Clear the canvas
-        // ctx.clearRect(0, 0, canvas.width, canvas.height);
         // Draw the selected area
         ctx.fillStyle = "rgba(0, 0, 0, 0.233)";
         ctx.fillRect(
@@ -145,6 +145,9 @@ function ImageEdit({
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onClick={(e) => {
+          handelOnclick(e);
+        }}
       ></canvas>
       <canvas ref={canvasForDraw} id="canvasForDraw"></canvas>
     </>

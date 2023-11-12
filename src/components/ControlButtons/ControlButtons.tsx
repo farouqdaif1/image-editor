@@ -20,8 +20,8 @@ function ControlButtons({
   canvasForDraw,
   hidedAreas,
   setHidedAreas,
-  pointSelected,
-}: buttonsProps) {
+}: // pointSelected,
+buttonsProps) {
   const handleHide = (
     area: { x: number; y: number; a: number; b: number },
     canvasForDraw: React.RefObject<HTMLCanvasElement>
@@ -34,8 +34,8 @@ function ControlButtons({
     if (hidedAreas.length === 0) {
       canvasX.width = canvasX.offsetWidth;
       canvasX.height = canvasX.offsetHeight;
-      setHidedAreas([...hidedAreas, area]);
     }
+    setHidedAreas([...hidedAreas, area]);
     const ctx = canvasX.getContext("2d");
     if (ctx) {
       // ctx.clearRect(0, 0, canvasX.width, canvasX.height);

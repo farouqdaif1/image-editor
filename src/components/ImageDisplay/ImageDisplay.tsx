@@ -14,6 +14,7 @@ interface childProps {
   hidedAreas: { x: number; y: number; a: number; b: number }[];
   setHidedAreas(hidedAreas: { x: number; y: number; a: number; b: number }[]): void;
   pointSelected: { x: number; y: number };
+  selectedArea: { x: number; y: number; a: number; b: number };
 }
 
 function ImageDisplay({
@@ -25,6 +26,7 @@ function ImageDisplay({
   hidedAreas,
   setHidedAreas,
   pointSelected,
+  selectedArea,
   
 }: childProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,6 +66,7 @@ function ImageDisplay({
             hidedAreas={hidedAreas}
             setHidedAreas={setHidedAreas}
             pointSelected={pointSelected}
+            selectedArea={selectedArea}
           />
         ) : (
           <h1>Please Upload Image !</h1>
