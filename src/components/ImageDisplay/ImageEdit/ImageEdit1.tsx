@@ -39,16 +39,14 @@ function ImageEdit({
     y: number,
     rect: { x: number; y: number; a: number; b: number }
   ) => {
-    const minX = Math.min(x, x + rect.a);
-    const maxX = Math.max(x, x + rect.a);
-    const minY = Math.min(y, y + rect.b);
-    const maxY = Math.max(y, y + rect.b);
     if (rect.a > 0 && rect.b > 0) {
       return (
         x > rect.x && x < rect.x + rect.a && y > rect.y && y < rect.y + rect.b
       );
     } else {
-      return x >= minX && x <= maxX && y >= minY && y <= maxY;
+      return (
+        x < rect.x && x > rect.x + rect.a && y < rect.y && y > rect.y + rect.b
+      );
     }
   };
 
@@ -75,9 +73,12 @@ function ImageEdit({
             }
             ctx.clearRect(0, 0, canvasX.width, canvasX.height); // Clear the canvas
             ctx.drawImage(baseImage, 0, 0);
+            console.log("element", selected);
 
             hidedAreas.forEach(function (element) {
               // Check if the current element is not the excluded element
+              // console.log("element", element)
+              // console.log("hidedAreas", hidedAreas[i])
               if (element !== hidedAreas[i]) {
                 // Perform your function on the element
 
@@ -85,7 +86,6 @@ function ImageEdit({
                 ctx.fillRect(element.x, element.y, element.a, element.b); // Rectangle dimensions (x, y, width, height)
               }
             });
-            // ctx.drawImage(baseImage, 0, 0);
             ctx.fillStyle = "#FF0000"; // Red color for the rectangle
             ctx.fillRect(
               hidedAreas[i].x,
